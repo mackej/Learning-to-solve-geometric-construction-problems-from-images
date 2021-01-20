@@ -1,0 +1,1 @@
+conda create -y -n geometry_from_images_test numpy tensorflow-gpu==1.15.0 keras==2.2.4 pycairo matplotlib scikit-image pillow python=3.6

@@ -1,0 +1,13 @@
+level, accuracy, visists, branching, estimates, time, time min_max, used models,bfsAverage,estAverage
+01 BisectAngle,1.00,502.5,1.91 - 1.00 - 0.67,70 - 99 - 133,0.14,0.13 / 0.33,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 999},1.19,100.67
+02 TBisectAngle,0.99,250.0,0.99,55,0.09,0.07 / 0.13,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 493},0.99,55.00
+03 Incenter,0.89,732.0,0.96 - 0.96 - 1.02 - 0.90,195 - 287 - 404 - 549,0.20,0.06 / 0.51,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1339},0.96,358.75
+04 Angle30,1.00,753.0,1.00 - 1.00 - 1.00 - 1.00 - 1.00 - 1.00,39 - 74 - 125 - 195 - 287 - 404,0.20,0.19 / 0.39,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1500},1.00,187.33
+05 DoubleAngle,0.92,809.0,1.71 - 1.09 - 0.91 - 1.00 - 0.61 - 0.71 - 0.20,125 - 195 - 287 - 404 - 549 - 725 - 935,0.21,0.18 / 0.59,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1386},0.89,460.00
+06 CutRectangle,0.96,766.0,1.49 - 1.05 - 1.01 - 1.33 - 1.04,935 - 1182 - 1469 - 1799 - 2175,0.19,0.06 / 1.32,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1446},1.18,1512.00
+07 DropPerp,0.98,550.0,1.00 - 1.00 - 2.00 - 1.89 - 1.15 - 0.74,74 - 125 - 195 - 287 - 404 - 549,0.14,0.12 / 1.56,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 978},1.30,272.33
+08 ErectPerp,1.00,515.0,2.00 - 1.00 - 1.17 - 1.57 - 1.09,39 - 74 - 125 - 195 - 287,0.14,0.12 / 0.67,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1000},1.37,144.00
+09 TDropPerp,0.90,250.0,0.90,16,0.07,0.06 / 0.08,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 450},0.90,16.00
+10 Tangent1,1.00,500.0,1.00 - 1.00,48 - 90,0.13,0.12 / 0.14,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1000},1.00,69.00
+11 TangentL,1.00,500.0,1.00 - 1.00,90 - 150,0.13,0.12 / 0.14,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1000},1.00,120.00
+12 CircleRhombus,0.85,1350.5,1.32 - 2.71 - 2.39 - 1.25 - 0.40 - 0.19 - 0.20,630 - 825 - 1056 - 1326 - 1638 - 1995 - 2400,0.36,0.06 / 2.99,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1696},1.21,1410.00

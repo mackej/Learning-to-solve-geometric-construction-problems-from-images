@@ -1,0 +1,5 @@
+Running pip install cairo might not work on Windows OS.
+To install the Cairo package, a wheel has to be compiled from the source code of Cairo.
+An alternative is to download Cairo wheel corresponding with a processor of the computer.
+This wheel can be downloaded at https://www.lfd.uci.edu/~gohlke/pythonlibs/#pygtk
+Then install from the wheel: python -m pip install wheel.whl.

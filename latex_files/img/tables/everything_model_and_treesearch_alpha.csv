@@ -1,0 +1,14 @@
+level, accuracy, visists, branching, estimates, time, time min_max, used models,bfsAverage,estAverage
+01 T1 line,0.85,715.5,1.00 - 0.85 - 0.99 - 1.00,6 - 10 - 15 - 21,0.19,0.12 / 6.88,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1272},0.96,13.00
+02 T2 circle,1.00,250.0,1.00,4,0.06,0.06 / 0.07,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 500},1.00,4.00
+03 T3 point,1.00,750.0,1.00 - 1.00 - 1.00,21 - 28 - 36,0.19,0.18 / 0.22,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1494},1.00,28.33
+04 TIntersect,0.99,499.0,1.00 - 0.99,45 - 55,0.13,0.06 / 0.15,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 988},0.99,50.00
+05 TEquilateral,1.00,1000.0,1.00 - 1.00 - 1.00 - 1.00,21 - 36 - 55 - 78,0.26,0.24 / 0.28,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 2000},1.00,47.50
+06 Angle60,0.94,948.5,1.23 - 1.00 - 1.00 - 1.09 - 1.42 - 1.19,21 - 36 - 55 - 78 - 105 - 136,0.25,0.18 / 0.97,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1584},1.16,71.83
+07 PerpBisector,0.99,745.0,0.99 - 1.00 - 1.00,21 - 36 - 55,0.19,0.06 / 0.21,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1485},1.00,37.33
+08 TPerpBisector,0.75,250.0,0.75,6,0.06,0.06 / 0.07,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 377},0.75,6.00
+09 Midpoint,1.00,752.5,1.00 - 1.00 - 1.01 - 2.60,13 - 27 - 46 - 70,0.19,0.17 / 0.41,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1494},1.40,39.00
+10 CircleInSquare,0.87,929.5,1.38 - 2.01 - 0.53 - 1.94 - 0.51 - 0.11,172 - 216 - 265 - 319 - 378 - 442,0.25,0.06 / 2.45,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1305},1.08,298.67
+11 RhombusInRect,0.99,811.5,1.07 - 1.01 - 1.02 - 1.56 - 1.32 - 1.04,265 - 319 - 378 - 442 - 511 - 585,0.20,0.18 / 2.97,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1486},1.17,416.67
+12 CircleCenter,1.00,750.0,1.00 - 1.01 - 1.00,27 - 46 - 70,0.18,0.17 / 0.20,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 1500},1.00,47.67
+13 SquareInCircle,1.00,1500.0,1.01 - 1.00 - 1.00 - 1.00 - 1.00 - 1.00,27 - 46 - 70 - 99 - 133 - 172,0.38,0.35 / 0.41,{'/home/mackej/MasterThesis/src/logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5': 3000},1.00,91.17

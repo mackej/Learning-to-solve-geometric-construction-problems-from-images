@@ -1,0 +1,33 @@
+\chapter{Conclusion}
+%\addcontentsline{toc}{chapter}{Conclusion}
+We developed a model for solving geometrical construction problems. The model is based on Mask R-CNN. To test the model, we used Euclidea, a construction game with geometric problems of different difficulty. To train the model, we have created a data generator that generates new configurations of Euclidea levels. We trained a model that can solve the first 6 level packs of Euclidea, 68 different levels/problems with 92\% accuracy. We describe multiple components of this model and experimentally demonstrated their benefits. Then we analyzed accuracy on unseen levels with the leave-one-out method. Some unseen levels can be solved, but there are also levels that our models were unable to solve. We were able to solve 31 out of 68 levels. This is caused by the fact that some levels are similar, and respective models can substitute one another. Levels without similarity to other levels cannot be solved. Because most not solved levels require approach/construction not seen in other levels, we believe that a model trained on a more general set of levels could solve them.
+
+%To solve unseen levels, we develop a tree search procedure that searches the space of hypothesis provided by the Mask {R-CNN} model. We describe multiple components of this model and how they affect the performance, comments such as the history channel, the on-the-fly generation, or the no-point-detection. As experiments shows, our method can learn constructions of multiple problems with high accuracy. It can learn to solve 68 geometric problems with an accuracy of 92\%. However, this model is less accurate in solving unseen levels. It can solve 31 out of 68 geometric problems.
+%We have introduced our version of Euclidea and described how to generate new configurations of pre-defined problems. We then developed a model based on Mask {R-CNN} that can learn to use all Eucldea construction tools and solve the first 6 level packs of Euclidea, 68 different levels/problems.
+\section{Contributions of the thesis}
+Below we summarize the contribution of this thesis:
+\begin{itemize}
+    \item We have described how to generate a new configuration of the levels that are suitable for the training of the model (see Chapter \ref{euclidea_chapter}).
+    \item We have described how to modify the Mask {R-CNN} to solve geometric problems, how to build training data and how to gather actions/ clicks from Mask {R-CNN} model (see Chapter \ref{mrcnn_chapter}).
+    \item We have described hypothesis tree search, a tree search within hypotheses given by the Mask {R-CNN} model. We also developed a program for the interactive exploration of hypotheses (see Chapter \ref{chapter_unseen_levels}).
+    \item We have shown the results of this approach. We describe multiple components of this model and experimentally demonstrated their benefits. In the supervised approach, we achieved an accuracy of 92\% with a single model on 68 levels. In the evaluation of the unseen levels with the leave-one-out method, we were able to solve 31 out of 68 levels (see Chapter \ref{experiment_chapter}). 
+    
+\end{itemize}
+\section{Future work}
+In the following list, we propose some further improvements and other approaches that may improve inference accuracy. 
+%\subsection*{Current model improvements}
+\begin{enumerate}
+    \item \textbf{More Euclidea levels}\newline
+    Prepare more packs for the training and train them. Construction for each level has to be prepared for random level generation. More levels could provide more general models for solving unseen levels. Furthermore, we could investigate the limitations of the supervised approach, how many levels could be learned at once.
+    \item \textbf{Tool mask as additional input}\newline
+    When we solve levels in Euclidea, we also know which tools are allowed but our model does not have this information. However, this information could help the model to distinguish different levels and thus improve model accuracy. 
+    \item \textbf{Reinforcement learning}\newline
+     We experimented with the reinforcement learning (RL), but we could not learn even basic levels due to the problem complexity. The problem has ample search space, and we would also have to learn object detection, which often takes a lot of training time, and combined with RL would take even more time. However, RL methods can be applied to the output of the Mask {R-CNN}. Furthermore, RL methods can decrease the search time of the hypothesis search. Nevertheless, this approach cannot solve levels that miss necessary hypotheses.
+    \item \textbf{Allow Move tool}\newline
+    We use the Move tool only to generate new instances, but this tool could also be useful for inference. Levels that cannot be solved could be transformed to a different configuration that the model can finish. However, training of the Move tool is problematic since it is hard to define when it is beneficial to use it.
+    \newline
+   We could also solve Euclidea by finding transformation to a normalized configuration. We could have a model trained to find a sequence of point moves that transform a level instance to a normalized configuration. We could then apply these point moves and solve a normalized configuration. Solution for a normalized configuration could be memorized.  Then we would apply reverse moves to obtain the original configuration of the level.
+    %\item \textbf{Predict the analytical model}\newline
+    
+    
+\end{enumerate}

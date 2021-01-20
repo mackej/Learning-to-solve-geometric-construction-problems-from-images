@@ -1,0 +1,10 @@
+level; accuracy; visists; branching factor; estimates; time; time min_max; used models; connections
+01 ChordMidpoint;0.15;337;3.35 - 4.02 - 3.64;90 - 150 - 231;6.78;0.96 / 33.70;{'Beta_as_whole/20201008': 2, 'Alpha_as_whole/20201008': 1, 'Epsilon_as_whole/20201008': 2, 'Zeta_as_whole/20201008': 1, 'Delta_as_whole/20200909_4M_images': 1};Alpha, Beta, Delta, Epsilon, Zeta
+02 ATrByOrthocenter;0.00;3429;3.60 - 3.55 - 2.66 - 2.47 - 2.68 - 2.90;231 - 336 - 468 - 630 - 825 - 1056;53.55;10.26 / 67.51;{};
+03 AtrByCircumcenter;0.90;408;3.15 - 2.67 - 2.68 - 2.04 - 2.10;231 - 336 - 468 - 630 - 825;6.36;0.64 / 45.59;{'Zeta_as_whole/20201008': 15, 'Delta_as_whole/20200909_4M_images': 19, 'Alpha_as_whole/20201008': 13, 'Beta_as_whole/20201008': 4, 'Epsilon_as_whole/20201008': 1};;Alpha, Beta, Delta, Epsilon, Zeta
+04 AEqualSegments1;0.10;3241;3.90 - 3.69 - 2.92 - 2.36 - 2.39 - 2.58 - 3.02;231 - 336 - 468 - 630 - 825 - 1056 - 1326;50.43;0.34 / 88.68;{'Epsilon_as_whole/20201008': 3, 'Beta_as_whole/20201008': 2, 'Alpha_as_whole/20201008': 2, 'Zeta_as_whole/20201008': 1};Alpha, Beta, Epsilon, Zeta
+05 CircleTangentPL;0.00;2053;2.70 - 3.15 - 3.30 - 3.50 - 3.56;90 - 150 - 231 - 336 - 468;32.14;5.87 / 50.76;{};
+06 TrapezoidCut;0.15;3358;5.10 - 3.81 - 3.60 - 3.03 - 2.65 - 2.56;630 - 825 - 1056 - 1326 - 1638 - 1995;52.16;3.18 / 80.18;{'Alpha_as_whole/20201008': 4, 'Delta_as_whole/20200909_4M_images': 7, 'Zeta_as_whole/20201008': 3, 'Epsilon_as_whole/20201008': 2};Alpha, Delta, Epsilon, Zeta
+07 Angle45;1.00;237;3.05 - 2.73 - 3.15 - 2.83 - 2.46;48 - 90 - 150 - 231 - 336;3.78;1.29 / 20.04;{'Beta_as_whole/20201008': 46, 'Epsilon_as_whole/20201008': 15, 'Delta_as_whole/20200909_4M_images': 22, 'Alpha_as_whole/20201008': 7, 'Zeta_as_whole/20201008': 2};Alpha, Beta, Delta, Epsilon, Zeta
+08 Lozenge;0.00;2719;3.05 - 1.67 - 3.81 - 3.48 - 2.81 - 3.01 - 3.01 - 3.60 - 4.01;48 - 90 - 150 - 231 - 336 - 468 - 630 - 825 - 1056;42.70;25.98 / 61.62;{};
+09 CentroidOfQuadrilateral;0.00;3208;5.45 - 3.40 - 2.68 - 2.38 - 2.78 - 2.83 - 3.08 - 3.32;468 - 630 - 825 - 1056 - 1326 - 1638 - 1995 - 2400;50.61;35.82 / 70.89;{};

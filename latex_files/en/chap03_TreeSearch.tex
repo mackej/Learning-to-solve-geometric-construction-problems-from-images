@@ -1,0 +1,115 @@
+\chapter{Complexity of exhaustive search for constructions}
+\label{chapter_exhaustive_search}This chapter analyzes the difficulty of exhaustive search for geometric constructions in Euclidea. We analyze the exhaustive search by computing the branching factor of the tree search. After defining our choice of tree search, we analyze the branching factors in the actual tree search.
+\newline \newline
+The Euclidean space has an infinite number of constructions. Hence the tree search for possible solutions has to have a large branching factor, and the search problem is unsolvable within a reasonable time to play the Euclidea game.
+According to \cite{ancient_problem}, exhaustive search can be done within days on a standard computer. This chapter is an illustration of how difficult the problem is.
+
+\section{Euclidea tools for tree search}
+\label{tools_for_treesearch}
+Before we decide which variant of the tree search to use, we will describe how to generate new nodes. We will use geometric primitives instead of click coordinates as the tool arguments. All tools can work with geometric primitives. The only exception is the Point tool. As a reminder, the Point tool creates points on intersections or primitives or points in open space (see Section \ref{point_tool}). For search purposes, we can use the Intersection tool for finding intersections instead. The creation of a point on a geometric primitive is even more straightforward with the primitive given as the argument. However, there is possibly an infinite number of choices to create a point on the geometric primitive. We will only create random points that are ``reasonable''. A reasonable point is a point that is not too close to any other point nearby. We will omit the function for open space point creation of the Point tool and not use it at all. That function may be needed to construct some more advanced levels in Euclidea, but in this chapter, we will investigate the complexity of solving only simple levels of the Euclidea game.
+
+\section{Estimate of the branching factor}
+\label{degrees_of_freedom}
+A complete tree search in the worst case has to go through $b^n$ possibilities, where $b$ is the branching factor, and $n$ is the minimal depth of the solution. We can thus analyze the difficulty of the search problem by estimating the branching factor.
+\newline \newline
+For this purpose, we have to define the number of degrees of freedom (\DOF{}) of each tool. \DOF{} is determined by the number of different tool outputs given by permutations of the arguments. For example the Line tool has \DOF{} = 1, since $line(A, B) = line(B, A)$, whereas the Circle tool has different outputs \newline$circle(A, B) \neq circle(B, A)$ hence circle has \DOF{}  equal to 2. The highest value of \DOF{} is 3 (Compass and Angle Bisector tools).
+\newline \newline
+\label{estimate_of_branching_factor}
+For the purposes of the estimate, let us define $G$ as the number of geometric primitives in the current scene. Then we can divide the tools into 3 groups, according to the number of arguments and the \DOF{}:
+\begin{itemize}
+    \item \textbf{Line, Perpendicular Bisector, and Intersection} tools have 2 arguments and a sing1e degree of freedom. Each tool in this group adds the same number of branches, which can be computed as follows:
+    \begin{equation}
+    G + {G \choose 2} = \frac{1}{2}G^2 + \frac{1}{2}G,
+    \end{equation}
+    $G$ branches for each tool usage like $\linetool(A,A)$ and ${G \choose 2}$ for each tool usage like $\linetool(A,B)$, where $A$,$B$ are unique combinations. 
+    \item \textbf{Circle, Perpendicular, and Parallel} tools have 2 degrees of freedom and 2 arguments. Each tool in this group adds the same number of branches, which can be computed as follows:
+    \begin{equation}
+    G + 2{G \choose 2 } = G^2.
+    \end{equation}
+    This group has maximal possible \DOF{} for its number of arguments, therefore $G^2$.
+    \item \textbf{Angle Bisector and Compass} tools have 3 degrees of freedom and 3 arguments. Each tool in this group adds the same number of branches, which can be computed as follows:
+    \begin{equation}
+    G + 4 {G \choose 2} + 3 {G \choose 3} = \frac{1}{2}G^3 + \frac{1}{2}G^2 , 
+    \end{equation}
+    $G$ branches for each tool usage like $\compass(A,A,A)$. $4{G \choose 2}$ counts the number of each tool usage like $\compass(B,A,A)$ and ${G \choose 2}$ gives the number of combinations we can pick in 2 ways which argument is used twice an in 2 ways we can order arguments (\DOF{} = 3, but -1 since two parameters are same). $3{G \choose 3}$ branches for each tool usage like $\compass(A,B,C)$, times 3 because \DOF{} is equal to 3.
+\end{itemize}
+The worst case happens when all tools are allowed. The branching factor is then the sum of branches of each tool:
+\begin{equation}
+b =  G^3 + \frac{11}{2}G^2 + \frac{3}{2}G.
+\end{equation}
+
+
+Note that the number of geometric primitives grows with every successful use of any tool by at least +1. Furthermore, for the Intersection tool we can create 2 points if we use the tool to find the intersection of two circles.
+\newline \newline
+If we assume that every tool is allowed and there is one primitive at the beginning, then when we add 1 primitive at each step, the branching factor estimate grows as follows (see Table \ref{estimate_growth}).
+\newline \newline
+\begin{table}[h]
+\resizebox{.95\textwidth}{!}{
+\begin{tabular}{l|rrrrrrrrr}
+    %\centering
+     \# of primitives & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9
+    \\ \hline
+     branching factor estimate & \textbf{8}&\textbf{33}&\textbf{81}&\textbf{158}&\textbf{270}&\textbf{423}&\textbf{623}&\textbf{876}&\textbf{1188} \\
+
+\end{tabular}}
+    \caption{Growth of the branching factor estimate (see Section \ref{degrees_of_freedom}). Each step adds one geometric primitive.}
+    \label{estimate_growth}
+\end{table}
+\newline \newline
+%\[\textbf{8 - 29 - 69 - %134 - 230 - 363 - 539 - %764 - 1044}\]
+
+However, these branching factors estimates represent the worst-case scenario and some of the actions can be invalid in the Euclidea environment. We can decrease the branching factor by simple heuristics. We will describe these heuristics in the next section.
+
+
+\section{Tree search over known primitives}
+\label{tree_seach}
+With changes to tools in the previous section (see Section \ref{tools_for_treesearch}), we can use any type of tree search on our problem. Although we omit creating random points in space, we can solve several levels, especially in the first level pack of Euclidea.
+\newline \newline
+In theory, we can use any tree search algorithm. However, the iterative deepening makes the most sense for its memory usage. Additionally, the levels construction length is known, so the initial depth can be set to the length of the construction, effectively transforming iterative deepening to depth-first search.
+\newline \newline
+To reduce the branching factor of the tree search, we use several heuristics. Amongst them are 2 heuristics preventing action repeats, but most notably, the following two heuristics:
+\begin{itemize}
+    \item \textbf{Reward cutting}:  It is beneficial to know the effect of an action to decide which action will be used first. To get the results of actions, we execute each action and then reverse it. This can reveal errors that can occur during action execution. Most importantly, it allows us to check if an action completes a part of the goal. If it does, we assume this action is the only action in the current node of the search.
+    \item \textbf{Goal construct-ability}: Since we use iterative deepening, the maximal depth is equal to $d$. If we are in depth $d-i$ and there are still $k$ parts of the goal to complete, and $k > i$, we can cut the branch since we cannot finish the goal in $i$ steps.
+\end{itemize}
+We can use the search to analyze the complexity of geometric construction problems. However, the search often runs longer than desired to play the game.
+\begin{table}[h!]
+    \centering
+    \resizebox{.95\textwidth}{!}{
+
+    \begin{tabular}{|c|c|c|}%
+    \hline
+    \bfseries Alpha levels & \bfseries Successful search & \bfseries Branching factor (estimate)
+    \csvreader[head to column names]{../img/tables/alpha_branching_factors.csv}{}% use head of csv as column names
+    {\\\hline\level\ & \suc & \shortstack{\\ \branch \\ (\estimate) \\} }% specify your columns here
+    \\\hline
+    \end{tabular}
+    }
+    \caption{Branching factors of Alpha levels, first 10k nodes visited. The first column show Euclidea level. The second column indicates whether the search completed the construction successfully (True/False). The third column gives the average branching factor (top) at each depth of the search and its estimate in the parenthesis (bottom).}
+
+    \label{alpha_branching}
+\end{table}
+\begin{table}[h!]
+    \centering
+\resizebox{.95\textwidth}{!}{
+
+\begin{tabular}{|c|c|c|}%
+    \hline
+    \bfseries Gamma levels & \bfseries Successful search & \bfseries Branching factor (estimate)
+    \csvreader[head to column names]{../img/tables/gamma_branching_factors.csv}{}% use head of csv as column names
+    {\\\hline\level\ & \suc & \shortstack{\\ \branch \\ (\estimate) \\} }% specify your columns here
+    \\\hline
+    \end{tabular}
+    }
+    \caption{Branching factors of Gamma levels, first 10k nodes visited. The first column show Euclidea level. The second column indicates whether the search completed the construction successfully (True/False). The third column gives the average branching factor (top) at each depth of the search and its estimate in the parenthesis (bottom).}
+    \label{gamma_branching}
+\end{table}
+\newline \newline
+In the easier levels, the heuristics allow us to reduce the branching factor significantly. However,
+for more complex levels, the measured branching factor approaches the estimate given in Section \ref{estimate_of_branching_factor}.
+\newline \newline
+Tables \ref{alpha_branching} and \ref{gamma_branching} show the branching factors of level packs Alpha and Gamma, respectively.
+Branching factors of the other level packs can be found in Appendix \ref{additional_branching_factor_tables}.
+
+\section{Tree search over automatically recognized primitives}
+The search described in Section \ref{tree_seach} assumed that the geometrical primitives in the environment were known. This assumed having access to the environment. Since this thesis aims to construct geometric constructions from image data, we also modified the iterative deepening to automatically detect and recognize geometric primitives in the image and then proceed with the search with these detected primitives. We use the Mask {R-CNN} network trained to recognize all geometric primitive in the scene. To train the network, we use Alpha levels, where each target is a mask of all geometric primitives in the scene. We discuss more in-depth details of the Mask {R-CNN} object detector in the next chapter. This approach rapidly slows the deepening because we have to generate an image of the scene and then run the CNN detection in each node. This can be further optimized to run the detector only once at the beginning of the search, and then newly constructed geometric primitives can be derived based on the difference between the previous state image and the current state image. Overall, this approach is a slower variant of the previous tree search, but it fits the theme of the thesis.

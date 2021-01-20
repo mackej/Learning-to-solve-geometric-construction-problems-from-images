@@ -1,0 +1,19 @@
+%%% A template for a simple PDF/A file like a stand-alone abstract of the thesis.
+
+\documentclass[12pt]{report}
+
+\usepackage[a4paper, hmargin=1in, vmargin=1in]{geometry}
+\usepackage[a-2u]{pdfx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+
+
+\begin{document}
+
+%% Do not forget to edit abstract.xmpdata.
+
+Construkce geometrických problémů pomocí kružítka a pravítka je problém, kterým se lidé zabývají už tisíce let. Lidé jsou schopni řešit geometrické problémy bez znalosti analytického modelu popisujicího jednotlivá geometrická primitiva problému. Přesto většina metod pro řešení těchto problémů na počítači analytický model vyžaduje. V této práci představíme metodu pro řešení geometrických konstrukcí s přístupem pouze k obrazové informaci dané scény.
+Metoda používá Mask {R-CNN}, konvoluční neurální síť pro detekci a segmentaci objektů v obrázcích a videích. Výstupem mask {R-CNN} jsou masky a bounding boxy s názvy objektů detekovaných ve vstupním obrazu. V této práci přizpůsobíme architekturu Mask R-CNN pro řešení geometrických konstrukcí ze vstupního obrazu. Vytvoříme proces jak získat jednotlivé kroky geometrických konstrukcí z masek získaných pomocí Mask R-CNN a popíšeme jak tento model natrénovat. Řešení geometrických problémů tímto způsobem je však náročné, protože se musíme vypořádat s detekcí geometrických primitiv a nejednoznačností konstrukce. Jeden geometrický problém má nekonečne mnoho konstrukcí. Náš model by měla být schopen vyřešit problémy na kterých nebyl natrénován. Abychom vyřešili modelu neznámé konstrukční problémy, vyvinuli jsme stromový prohledávací algoritmus, který prohledává prostor hypotéz navrhnutých Mask {R-CNN} modelem. Popíšeme několik částí tohoto modelu a experimentálně demonstrujeme jejich výhody. Experimenty ukazují, že naše metoda se dokáže naučit konstrukci několika problémů s poměrně vysokou úspěšností dokončení konstrukce. Pro geometrické problémy, které byly v trénovací datech, se naše metoda naučí řešit všech 68 geometrických konstrukčních problémů. Tyto problémy jsou z prvních šesti obtížnostních úrovní geometrické hry Euclidea. Průměrnou úspěšností dokončení problému je 92\%. Naše metoda je schopna také řešit jí neznámé geometrické problémy, které nebyly součástí trénovacích dat. Řešit neznámé geometrické problémy je mnohem težší problém, přesto je naše metoda schopna vyřešit 31 ze zmíněných 68 problémů.
+\end{document}

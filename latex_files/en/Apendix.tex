@@ -1,0 +1,115 @@
+\chapter{Appendix}
+\section{Chapter \ref{euclidea_chapter}: Level descriptions}
+\label{appendix_ch1}
+\begin{longtable}[h]{|m{2cm}m{4cm}m{8cm}|}
+    \hline
+    \bfseries Level & \bfseries Our Name & \bfseries Level Description
+    \hline
+    \endhead
+    \csvreader[head to column names, late after line=\\\hline]{../img/tables/Euclidea_Level_Descriptions.csv}{}
+    {\level & \ourName & \euclideaDescription}
+    \caption{Description for Alpha to Zeta levels of Euclidea. In the first column is a numbered level name, in the second column is the name used in our version of Euclidea and the third column is a level description.}
+    \label{level_descriptions}
+\end{longtable}
+
+\section{Chapter \ref{chapter_exhaustive_search}: Branching factors}
+\label{additional_branching_factor_tables}
+\begin{table}[h]
+    \centering
+\resizebox{.95\textwidth}{!}{
+
+\begin{tabular}{|m{3cm}|m{2.5cm}|c|}
+    \hline
+    \bfseries Beta levels & \bfseries Successful search & \bfseries Branching factor (estimate)
+    \csvreader[head to column names]{../img/tables/beta_branching_factors.csv}{}% use head of csv as column names
+    {\\\hline\level\ & \suc & \shortstack{\\ \branch \\ (\estimate) \\} }% specify your columns here
+    \\\hline
+    \end{tabular}
+    }
+    \caption{Branching factors of Beta levels, first 10k nodes visited}
+    \label{beta_branching}
+\end{table}
+\begin{table}[h]
+    \centering
+\resizebox{.95\textwidth}{!}{
+
+\begin{tabular}{|m{3cm}|m{2.5cm}|c|}
+    \hline
+    \bfseries Delta levels & \bfseries Successful search & \bfseries Branching factor (estimate)
+    \csvreader[head to column names]{../img/tables/delta_branching_factors.csv}{}% use head of csv as 
+    {\\\hline\level\ & \suc & \shortstack{\\ \branch \\ (\estimate) \\} }% specify your columns here
+    \\\hline
+    \end{tabular}
+    }
+    \caption{Branching factors of Delta levels, first 10k nodes visited}
+    \label{delta_branching}
+\end{table}
+\begin{table}[h]
+    \centering
+\resizebox{.95\textwidth}{!}{
+
+\begin{tabular}{|m{3cm}|m{2.5cm}|c|}
+    \hline
+    \bfseries Epsilon levels & \bfseries Successful search & \bfseries Branching factor (estimate)
+    \csvreader[head to column names]{../img/tables/epsilon_branching_factors.csv}{}% use head of csv as column names
+    {\\\hline\level\ & \suc & \shortstack{\\ \branch \\ (\estimate) \\} }% specify your columns here
+    \\\hline
+    \end{tabular}
+    }
+    \caption{Branching factors of Epsilon levels, first 10k nodes visited}
+    \label{epsilon_branching}
+\end{table}
+\begin{table}[t!]
+    \centering
+\resizebox{.95\textwidth}{!}{
+
+\begin{tabular}{|m{3.5cm}|m{2.5cm}|c|}
+    \hline
+    \bfseries Zeta levels & \bfseries Successful search & \bfseries Branching factor (estimate)
+    \csvreader[head to column names]{../img/tables/zeta_branching_factors.csv}{}% use head of csv as column names
+    {\\\hline\level\ & \suc & \shortstack{\\ \branch \\ (\estimate) \\} }% specify your columns here
+    \\\hline
+    \end{tabular}
+    }
+    \caption{Branching factors of Zeta levels, first 10k nodes visited}
+    \label{zeta_branching}
+\end{table}
+
+\section{Chapter \ref{experiment_chapter}: Inference}
+In the following Table \ref{model_and_tree_search} we can see inference result of the all levels models on levels from Alpha to Zeta.
+\label{all_model_tree_search}
+\begin{longtable}{| m{7cm} | m{2cm}| m{4cm} |}
+    \hline
+    \endhead
+    \hline
+    \endfoot
+    \hline
+    \bfseries Level & \bfseries Accuracy & \bfseries Average branching factor (estimate) \hline
+    %\endhead
+    \multicolumn{3}{c}{\bfseries Alpha }\\[0.2cm] \hline
+    \csvreader[head to column names, late after line=\\]{../img/tables/everything_model_and_treesearch_alpha.csv}{}
+    {\level & \accuracy & \bfsAverage \: (\estAverage) }
+    \hline
+    \multicolumn{3}{c}{\bfseries Beta }\\[0.2cm] \hline
+    \csvreader[head to column names, late after line=\\]{../img/tables/everything_model_and_treesearch_beta.csv}{}
+    {\level & \accuracy & \bfsAverage \: (\estAverage) }
+    \hline
+    \multicolumn{3}{c}{\bfseries Gamma }\\[0.2cm] \hline
+    \csvreader[head to column names, late after line=\\]{../img/tables/everything_model_and_treesearch_gamma.csv}{}
+    {\level & \accuracy & \bfsAverage \: (\estAverage) }
+    \hline
+    \multicolumn{3}{c}{\bfseries Delta }\\[0.2cm] \hline
+    \csvreader[head to column names, late after line=\\]{../img/tables/everything_model_and_treesearch_delta.csv}{}
+    {\level & \accuracy & \bfsAverage \: (\estAverage) }
+    \hline
+    \multicolumn{3}{c}{\bfseries Epsilon }\\[0.2cm] \hline
+    \csvreader[head to column names, late after line=\\]{../img/tables/everything_model_and_treesearch_epsilon.csv}{}
+    {\level & \accuracy & \bfsAverage \: (\estAverage) }
+    \hline
+    \multicolumn{3}{c}{\bfseries Zeta }\\[0.2cm] \hline
+    \csvreader[head to column names, late after line=\\]{../img/tables/everything_model_and_treesearch_zeta.csv}{}
+    {\level & \accuracy & \bfsAverage \: (\estAverage) }
+    \hline
+    \caption{Evaluation of the all levels model, all 68 levels Alpha to Zeta trained. The hypothesis tree search is used for evaluation. In the first column, we can see level, accuracy on that level in the second column, and in the last column the average branching factor and its estimate in the parenthesis. Note that averages under 1 mean that some instance has no hypothesis.}
+    \label{model_and_tree_search}
+\end{longtable}
