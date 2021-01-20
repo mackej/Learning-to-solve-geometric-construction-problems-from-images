@@ -10,6 +10,8 @@ This project has 4 main modules:
 * Hypothesis explorer
 * Hypothesis tree search
 * Exhaustive search
+
+
 Training and for this project were run at the Slurm cluster. Some folder also contains the Slurm job assignments. Every module can be run manually.
 However, inspecting the Slurm files (.sh) gives a good example of how to run the modules.
 
