@@ -6,10 +6,10 @@ To solve unseen construction problems, we develop a tree search procedure that s
 
 # Project contents
 This project has 4 main modules:
-	- Mask R-CNN scripts for training and testing
-	- Hypothesis explorer
-	- Hypothesis tree search
-	- Exhaustive search
+*Mask R-CNN scripts for training and testing
+*Hypothesis explorer
+*Hypothesis tree search
+*Exhaustive search
 Training and for this project were run at the Slurm cluster. Some folder also contains the Slurm job assignments. Every module can be run manually.
 However, inspecting the Slurm files (.sh) gives a good example of how to run the modules.
 
