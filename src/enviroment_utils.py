@@ -41,10 +41,12 @@ class EnvironmentUtils:
             else:
                 mask[pt_one[0], pt_one[1]] = 0
         succession = False
-        if len(result) == number_of_points:
+        if len(result) == number_of_points :
             succession = True
-
-        return np.array(result), succession
+        result = np.array(result)
+        if np.any(result < 0) or np.any(result > mask.shape[0]):
+            succession = False
+        return result, succession
 
     @staticmethod
     def build_image(geom_primitives, out_size, scale, corners, goal_objects, history, visualisation=False):

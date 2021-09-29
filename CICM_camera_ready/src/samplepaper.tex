@@ -1,0 +1,105 @@
+\documentclass[runningheads]{llncs}
+
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+
+\usepackage[draft]{changes}
+\usepackage[noend]{algorithm2e}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage[misc,geometry]{ifsym}
+
+\usepackage{csvsimple}
+\usepackage{verbatim}
+
+\usepackage[skip=5pt]{caption}
+\usepackage[skip=0pt]{subcaption}
+\captionsetup[figure]{font=small}
+\captionsetup[table]{font=small}
+
+\DeclareMathOperator{\compass}{compass}
+\DeclareMathOperator{\circletool}{circle}
+\DeclareMathOperator{\linetool}{line}
+\DeclareMathOperator{\anglebi}{Angle Bisector}
+\usepackage{array}
+
+\usepackage[compact]{titlesec}
+    
+
+\usepackage{placeins}
+\let\Oldsection\section
+\renewcommand{\section}{\FloatBarrier\Oldsection}
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+
+
+\let\Oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
+
+
+
+\definecolor{greencolor}{rgb}{0,0.5,0}
+
+\newcommand{\maskrcnn}{Mask {R-CNN}\xspace}
+\newcommand{\alphapack}{Alpha\xspace}
+\newcommand{\betapack}{Beta\xspace}
+\newcommand{\gammapack}{Gamma\xspace}
+\newcommand{\deltapack}{Delta\xspace}
+\newcommand{\epsilonpack}{Epsilon\xspace}
+\newcommand{\zetapack}{Zeta\xspace}
+
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}
+                       {-12\p@ \@plus -4\p@ \@minus -4\p@}
+                       {8\p@ \@plus 4\p@ \@minus 4\p@}
+                       {\normalfont\large\bfseries\boldmath
+                        \rightskip=\z@ \@plus 8em\pretolerance=10000 }}
+
+\makeatother
+
+\begin{document}
+
+\title{Learning to solve geometric construction problems from 
+images\thanks{This work was partly supported by the European Regional Development Fund under the projects IMPACT and AI\&Reasoning (reg. no. CZ.02.1.01/0.0/0.0/15\_003/0000468 and CZ.02.1.01/0.0/0.0/15\_003/0000466)
+and the ERC Consolidator grant \emph{SMART} no.~714034.
+}
+}
+
+\author{Jaroslav Macke\inst{1,2}\orcidID{0000-0001-6938-4776} \and
+Jiri Sedlar\inst{2}\textsuperscript{(\Letter)}\orcidID{0000-0002-4704-3388} \and
+Miroslav Olsak\inst{3}\orcidID{0000-0002-9361-1921} \and
+Josef Urban\inst{2}\orcidID{0000-0002-1384-1613} \and
+Josef Sivic\inst{2}\orcidID{0000-0002-2554-5301}
+}
+
+\authorrunning{J. Macke et al.}
+\institute{Charles University in Prague, Czech Republic \and
+Czech Technical University in Prague, Czech Republic\\
+\email{jiri.sedlar@cvut.cz} \and
+University of Innsbruck, Austria}
+\maketitle
+\begin{abstract}
+We describe a purely image-based method for finding geometric constructions with a ruler and compass in the Euclidea geometric game. The method is based on adapting the \maskrcnn state-of-the-art visual recognition neural architecture and adding a tree-based search procedure to it. In a supervised setting, the method learns to solve all 68 kinds of geometric construction problems from the first six level packs of Euclidea with an average 92\% accuracy. When evaluated on new kinds of problems, the method can solve 31 of the 68 kinds of Euclidea problems. We believe that this is the first time that purely image-based learning has been trained to solve geometric construction problems of this difficulty.
+
+
+
+\keywords{computer vision \and visual recognition \and automatic geometric reasoning \and solving geometric construction problems}
+\end{abstract}
+
+\input{section_1_Introduction}
+\input{section_2_RelatedWork}
+\input{section_3_Euclidea}
+\input{section_4_mrcnn}
+\input{section_5_unseen_levels}
+\input{section_6_experiments}
+\input{section_7_conclusion}
+
+\phantomsection
+\let\Origclearpage\clearpage
+\let\clearpage\relax
+
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+\let\clearpage\Origclearpage
+
+\end{document}

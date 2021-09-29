@@ -16,7 +16,7 @@ def generate_geometry_episodes(args):
     levels = LevelSelector.get_levels(
         match=args.generate_levels
     )
-    m = multi_level.MultiLevel((levels))
+    m = multi_level.MultiLevel((levels),number_of_construction_sub_goals=1)
     min_tool_set = None
     if args.tool_set == "min_by_levels":
         min_tool_set = m.get_min_set_of_tool()
@@ -60,7 +60,7 @@ def generate_geometry_episodes(args):
 
             dataset.add_one_scene(primitives, action_points.copy(), action_tool_network_index, m, epoch)
 
-            if args.visualize > 0 and action_index == 0:
+            if args.visualize > 0 :
                 # img = Image.fromarray(EnvironmentUtils.build_image_from_multilevel(m)).show()
                 img = data_gen.load_image(len(data_gen.image_info) - 1)
                 vis_image = env_utils.EnvironmentUtils.build_image_from_multilevel_for_visualization(m, None,

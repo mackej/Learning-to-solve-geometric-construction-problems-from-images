@@ -1,0 +1,34 @@
+\section{Related Work}
+\label{sec:related}
+Visual recognition techniques can be used for interpreting a
+geometrical question given by a diagram. Such a geometry solver was proposed in~\cite{allen1,allen2}. The input problem is specified by a diagram and a short text. This input is first decoded into a formal specification describing the input entities and their relations using visual recognition and natural language processing tools.  The formal specification is then passed to an optimizer based on basin hopping.
+In contrast, we do not attempt to convert the input problem into a formal specification but instead use a visual recognizer to directly guide the solution steps with only images as input.
+
+The most studied geometry problems are those where the objective is to
+find a proof \cite{TGTP}. This contrasts with our work, where
+we tackle construction problems. An algebraic approach to a specific
+type of construction problem
+is used by Argotrics \cite{Argotics}. This is
+a Prolog-based method for finding constructions that satisfy
+given axiomatically proven propositions.
+
+
+
+Automated provers for geometry problems are mostly of two
+categories. They are either synthetic \cite{synth1,synth2},
+i.e., they mimic the classical
+human geometrical reasoning, and prove the problems by applying
+predefined sets of rules / axioms (similar triangles, inscribed angle
+theorem, etc). The other type of solvers are based on algebraic methods
+such as Wu's method \cite{wu} or the Gröbner basis method \cite{grobner}.
+These have better performance
+than the synthetic ones but do not provide a human readable
+solution. There are also methods combining the two approaches. They may for example use some algebra
+but keep the computations simple (the Full angle method or
+the Area method \cite{AreaBook}). We cannot compare directly with such provers
+because of the constructional nature of the problems we study. 
+However, our approach is complementary to the above methods and can be used, for example, to suggest possible next construction steps based on the visual configuration of the current scene.
+
+Automated theorem provers (ATPs) such as Otter~\cite{MW97} and Prover9~\cite{McC-Prover9-URL} have been used for solving geometric problems, e.g., in Tarskian geometry~\cite{BeesonW17,DurdevicNJ15,Qua92-Book}. Proof checking in interactive theorem provers (ITPs) such as HOL Light and Coq has been used to verify geometric proofs formally~\cite{BeesonNW19}. Both ATPs and ITPs have been in recent years improved by using machine learning and neural guidance~\cite{JakubuvCOP0U20,GauthierKUKN21}. ATPs and ITPs however assume that a formalization of the problem is available, which typically includes advanced mathematical education and nontrivial cognitive effort. The formal representations are also closer to text, which informs the choice of neural architectures successfully used in ATPs and ITPs (GNNs, TNNs, Transformers).
+In contrast, we try to skip the formalization step and learn solving geometric construction problems directly from images.
+This also means that our methods could be used on arbitrary informal images, such as human geometry drawings, creating their own internal representations.

@@ -55,7 +55,7 @@ if __name__ == "__main__":
                         help="Size of how many epochs are generated for validation data")
     parser.add_argument("--history_size", default=1, type=int,
                         help="how many steps of history for each image")
-    parser.add_argument("--generate_levels", default="04.*10", type=str,
+    parser.add_argument("--generate_levels", default="zeta.*07", type=str,
                         help="regex that matches lvl names")
     parser.add_argument("--use_heat_map", default=0, type=int,
                         help="whether to use heat map or not as target, also config minimak have to be set to False")
@@ -83,6 +83,8 @@ if __name__ == "__main__":
                         help="'pre-sampled' or 'on-the-fly' methods")
     parser.add_argument("--seed", default=3911, type=int,
                         help="random seed for data generation.")
+    parser.add_argument("--number_of_partial_goals", default=1, type=int,
+                        help="number of partial goal in the training data")
     args = parser.parse_args()
 
     np.random.seed(seed=args.seed)

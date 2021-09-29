@@ -149,6 +149,9 @@ class GeometryDataset(utils.Dataset):
         info = self.image_info[image_id]
         action_points = info['action_points']
         tool_id = info['tool_id']
+        return self.procces_mask(action_points, tool_id)
+
+    def procces_mask(self, action_points, tool_id):
         #point is same as must but just different id
         if ('Line' in self.id_name_dic and self.id_name_dic['Line'] == tool_id) or\
             ('Point' in self.id_name_dic and self.id_name_dic['Point'] == tool_id) or\

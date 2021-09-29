@@ -5,9 +5,9 @@ from collections import deque
 import pickle
 from py_euclidea import multi_level
 from LevelSelector import LevelSelector
-
+from skimage import draw
 from scipy.stats import multivariate_normal
-
+import datetime
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
@@ -27,7 +27,7 @@ class GeometryDataset_on_the_fly_gen(GeometryDataset.GeometryDataset):
         levels = LevelSelector.get_levels(
             match=args.generate_levels
         )
-        m = multi_level.MultiLevel((levels))
+        m = multi_level.MultiLevel((levels), number_of_construction_sub_goals=args.number_of_partial_goals)
         min_tool_set = None
         if args.tool_set == "min_by_levels":
             min_tool_set = m.get_min_set_of_tool()
@@ -70,7 +70,11 @@ class GeometryDataset_on_the_fly_gen(GeometryDataset.GeometryDataset):
                self.done_level = True
         except Exception as e:
             print("error in inferrence from model data.")
-            raise e
+            with open("err_in_training_{}.txt".format(datetime.now().strftime("%Y_%m_%d_%H_%M_%S")), mode="a+",encoding='utf-8') as f:
+                print("error in inferrence from model data.")
+                print(e)
+            # perform file operations
+            #raise e
 
     def reset_level(self):
         self.done_level = False

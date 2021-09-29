@@ -22,10 +22,10 @@ def get_construction(env, obj):
         Point(p) for p in intersection]
     # sometimes intersection colide and we cant pick which we want, we add those intersection into construction,
     # to make construction degenerated if they are too close
-    for i in intersection_tool(l, circle_1):
-        res.append(i)
-    for i in intersection_tool(l, circle_2):
-        res.append(i)
+    #for i in intersection_tool(l, circle_1):
+     #   res.append(i)
+    #for i in intersection_tool(l, circle_2):
+     #   res.append(i)
     return [
                construction.ConstructionProcess('Point', [Point(p)]) for p in intersection], res
 

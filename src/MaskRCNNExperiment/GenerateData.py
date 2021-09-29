@@ -21,7 +21,7 @@ if __name__ == "__main__":
                         help="Size of how many epochs are generated for validation")
     parser.add_argument("--history_size", default=1, type=int,
                         help="how many steps of history for each image")
-    parser.add_argument("--generate_levels", default="02.*02", type=str,
+    parser.add_argument("--generate_levels", default="05.*12", type=str,
                         help="regex that matches lvl names")
 
     parser.add_argument("--export_train_file", default="datagen_train_data", type=str,

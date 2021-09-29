@@ -21,7 +21,10 @@ date +"%T"
 
 nvidia-smi
 
+LEVELS="zeta.*"
+LOG_FOLDER="Zeta_with_partial_goals/20210809_one_partial"
+MODEL_PATH="logs/"$LOG_FOLDER"/mask_rcnn_geometryfromimages_0260.h5"
 
-python TestModel.py --model_path "logs/Zeta_One_by_One/20200915/06-03/mask_rcnn_geometryfromimages_0200.h5" --hint 0 --episodes 500 --log_failed_levels 1 --visualization 0 --white_visualization 0 --load_levels_from_failed_logs 0 --generate_levels "06.*03" --history_size 1 --hint 0 --additional_moves 2 --log_failed_levels_file "unfinished_envs_02" --model_type "SingleModelInference"
+python TestModel.py --number_of_partial_goals 1 --model_path=$MODEL_PATH --hint 0 --episodes 500 --log_failed_levels 1 --visualization 0 --white_visualization 0 --load_levels_from_failed_logs 0 --generate_levels=$LEVELS --history_size 1 --hint 0 --additional_moves 2 --log_failed_levels_file "unfinished_envs_02" --model_type "SingleModelInference"
 
 echo finish

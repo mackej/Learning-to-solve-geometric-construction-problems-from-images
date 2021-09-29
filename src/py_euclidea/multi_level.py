@@ -13,9 +13,13 @@ class MultiLevel:
         self, levels,
         drop_prob = 0, max_moves = 20,
         out_size = (256,256), scale = (2,2),
+        number_of_construction_sub_goals = 0
     ):
         self.out_size = np.array(out_size, dtype = int)
         self.scale = np.array(scale, dtype = float)
+        self.use_uniform_goals = number_of_construction_sub_goals
+        self.partial_goals_step_for_cur_env = 0
+        self.part_of_the_construction = 0
         self.corners = np.array((
             (0, 0),
             out_size,
@@ -92,11 +96,13 @@ class MultiLevel:
             if tool_name == "move": continue
             tool_index = self.tool_name_to_index[tool_name]
             self.tool_mask[tool_index] = True
+        self.roll_random_parial_goal()
         return level_index
 
     def stop_level(self):
         if self.cur_env is not None:
             self.cur_env.restart()
+        self.part_of_the_construction = 0
         self.cur_env = None
 
     def next_level(self, level_index=None, logged_level=None):
@@ -214,3 +220,19 @@ class MultiLevel:
         if len(self.remaining_goals) == 0:
             finish = True
         return reward, finish
+    def is_goal_fulfilled(self,change_rem_goals=True):
+        reward = 0
+        rem_goals_next = []
+        finish = False
+        for goal in self.remaining_goals:
+            if any(goal.identical_to(out) for out in self.cur_env.objs):
+                reward += self.goal_reward
+            else:
+                rem_goals_next.append(goal)
+        if change_rem_goals:
+            self.remaining_goals = rem_goals_next
+        if len(rem_goals_next) == 0:
+            finish = True
+        return  finish
+    def roll_random_parial_goal(self):
+        print(self.cur_env)

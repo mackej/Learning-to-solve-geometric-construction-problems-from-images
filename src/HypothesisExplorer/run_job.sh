@@ -6,7 +6,8 @@
 #SBATCH --mem=100G
 #SBATCH --time=72:00:00
 #SBATCH --partition=gpu
-#SBATCH --exclude=node-[02-12],dgx-[2-5]
+##SBATCH --exclude=node-[02-12],dgx-[2-5]
+##SBATCH --nodelist=dgx-2
 #SBATCH --mail-type=END,FAIL
 
 
@@ -24,7 +25,20 @@ date +"%T"
 
 nvidia-smi
 
-python run_hypothesis_tree_search.py
+
+python tree_search_partial_goals.py > uniform_partial_goals_Zeta_TS_20_ep.csv
+
+
+
+#python ParalellSearch_test.py --number_of_cpu_probes 32 --number_of_gpu_masters 2 --batch_size 8
+
+
+#python run_whole_level_pack_inference.py --pack="beta"  >beta_out_long_inference.csv
+#python run_whole_level_pack_inference.py --pack="gamma"  >gamma_out_long_inference.csv
+#python run_whole_level_pack_inference.py --pack="delta"  >delta_out_long_inference.csv
+#python run_whole_level_pack_inference.py --pack="epsilon"  >epsilon_out_long_inference.csv
+#python run_whole_level_pack_inference.py --pack="zeta"  >zeta_out_long_inference.csv
+
 
 echo finish
 

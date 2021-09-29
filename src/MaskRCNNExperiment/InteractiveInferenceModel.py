@@ -69,17 +69,17 @@ class InteractiveInference:
         return res
 
 class InteractiveInferenceMultiModel(InteractiveInference, MultipleModelsInference):
-    def gather_hypotheses(self, pred, hint, multi_level, cut_cheat_moves=False):
+    @staticmethod
+    def gather_hypotheses(pred, hint, multi_level, datasets, models_paths, cut_cheat_moves=False):
         all_hypothesis = []
         for i in range(len(pred)):
             p = pred[i]
-            m = self.model[i]
             if p is None:
                 continue
-            h = env_utils.EnvironmentUtils.prepare_all_hypothesis(p, m.dataset, multi_level)
+            h = env_utils.EnvironmentUtils.prepare_all_hypothesis(p, datasets[i], multi_level)
             for j in h:
                 if j["tool_status"]:
-                    j["source"] = m.model_path
+                    j["source"] = models_paths[i]
                     all_hypothesis.append(j)
         unique_hypothesis = []
         for i in range(len(all_hypothesis)):

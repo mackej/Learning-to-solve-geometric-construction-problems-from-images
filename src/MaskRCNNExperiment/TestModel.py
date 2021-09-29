@@ -1,7 +1,7 @@
 import os
 import sys
 from datetime import date
-
+from datetime import datetime
 ROOT_DIR = os.path.abspath("../")
 sys.path.append(ROOT_DIR)
 from LevelSelector import LevelSelector
@@ -19,6 +19,10 @@ from py_euclidea import multi_level
 import numpy as np
 import enviroment_utils as env_utils
 
+import random
+random.seed(42)
+np.random.seed(42)
+
 class unfinished_environment:
     def __init__(self, objs, goal, level_index, construction):
         self.objs = objs
@@ -33,10 +37,14 @@ def TestModel(levels, model_path, episodes,  history_size,
               visualization=False, white_visualization=False,
               log_fails=False, log_failed_levels_file=None, output_to=sys.stdout,
               model_type="SingleMofdelInference"):
-
+    sum_elapsed = 0
+    elapsed_cnt = 0
     levels = LevelSelector.get_levels(levels)
-
-    model_types = {
+    if model_type=="YolacSingle":
+        import YolactExperiment.YolactInference_SingleModel as yolact
+        model_type = {'YolacSingle': yolact.YolactSingleModelInference}
+    else:
+        model_types = {
         "MultipleModelsInference": MultipleModelsInference,
         "SingleModelInference": SingleModelInference,
         "InteractiveInferenceSingleModel": InteractiveInferenceSingleModel,
@@ -49,9 +57,10 @@ def TestModel(levels, model_path, episodes,  history_size,
 
     m = multi_level.MultiLevel((
         levels
-    ))
+    ),number_of_construction_sub_goals=args.number_of_partial_goals)
     history = deque(maxlen=history_size)
     accuracies = []
+    solved_levels_accuracies = []
     number_of_possible_actions = len(m.tools)
     total_reward = 0
     env_solved = 0
@@ -62,6 +71,7 @@ def TestModel(levels, model_path, episodes,  history_size,
 
     for level in range(len(levels)):
         for e in range(episodes):
+            t_start = time.time()
             if loop_failed:
                 level_index = m.next_level(None, failed_envs[e])
             else:
@@ -88,16 +98,25 @@ def TestModel(levels, model_path, episodes,  history_size,
                     caption_col = "white"
                     if white_visualization:
                         visualization_scale = 4
-                        vis_image = env_utils.EnvironmentUtils.build_image_from_multilevel_for_visualization(m, history,
-                                                                                                             visualization_scale)
+                        x = env_utils.EnvironmentUtils.prepare_all_hypothesis(pred, model.dataset, m)
+                        vis_image_res = env_utils.EnvironmentUtils.build_image_from_multilevel_for_visualization(m, history,
+                                                                                                             visualization_scale,
+                                                                                                             highlight_objects=x[0]['result_obj'] if len(x)>0 else [])
+                        vis_image = env_utils.EnvironmentUtils.build_image_from_multilevel_for_visualization(m,
+                                                                                                                 history,
+                                                                                                                 visualization_scale,)
+
                         caption_col = "black"
                     else:
                         vis_image = image
 
                     model.show_model_input(vis_image, pred, caption_col, visualization_scale, get_ax())
-                    #plt.savefig("Outputimgs/input_image{}.png".format(i), dpi=1024)
-                    model.show_model_output(vis_image, pred, caption_col, visualization_scale, get_ax())
-                    #plt.savefig("Outputimgs/output_image{}.png".format(i), dpi=1024)
+                    plt.savefig("Outputimgs/input_image{}-{}.png".format(e,i), dpi=1024)
+                    plt.close()
+                    model.show_model_output(vis_image_res, pred, caption_col, visualization_scale, get_ax())
+                    plt.savefig("Outputimgs/output_image{}-{}.png".format(e,i), dpi=1024)
+                    plt.close()
+
 
 
                 hint, _ = [None, None] if not use_hint else m.get_construction(i)
@@ -112,7 +131,7 @@ def TestModel(levels, model_path, episodes,  history_size,
                         vis_image = env_utils.EnvironmentUtils.build_image_from_multilevel_for_visualization(m, history,
                                                                                                              visualization_scale)
                         model.show_model_input(vis_image, pred, caption_col, visualization_scale, get_ax())
-                        plt.savefig("Outputimgs/input_image{}.png".format(i + 1), dpi=1024)
+                        plt.savefig("Outputimgs/input_image{}-{}.png".format(e,i + 1), dpi=1024)
                     break
             if not done and log_fails:
                 m.cur_env.restart()
@@ -125,12 +144,16 @@ def TestModel(levels, model_path, episodes,  history_size,
                 env_solved += 1
 
             total_reward += reward_in_one_env
+            t_end = time.time() - t_start
+            sum_elapsed += t_end
+            elapsed_cnt += 1
 
         print("level", levels[level][1], "accuracy: ", total_reward, "/", e + 1, "total accuracy:",
               total_reward / (e + 1),
               " solved envs:", env_solved, "/", e + 1, file=output_to, flush=True)
 
         accuracies.append(total_reward / (e + 1))
+        solved_levels_accuracies.append(env_solved / (e + 1))
         total_reward = 0
         env_solved = 0
 
@@ -140,10 +163,17 @@ def TestModel(levels, model_path, episodes,  history_size,
                 pickle.dump(unfinished_envs, data_gen_file)
             unfinished_envs = []
     csv_output = open(os.path.join(ROOT_DIR, os.path.join(os.path.dirname(model_path),
-                                                          "output_{}.csv".format(date.today()))), "w")
-    print(", ".join([l[1] for l in levels]), file=csv_output)
-    print(", ".join([str(i) for i in accuracies]), file=csv_output, flush=True)
+                                                          "output_{}.csv".format(datetime.now().strftime("%Y-%m-%d-%H-%M-%S")))), "w")
+    print(","+", ".join([l[1] for l in levels]), file=csv_output)
+    print("reward earnerd,"+", ".join([str(i) for i in accuracies]), file=csv_output, flush=True)
+    print("finished levels," +", ".join([str(i) for i in solved_levels_accuracies]), file=csv_output, flush=True)
     print('FINAL ACCURACY:', np.average(np.array(accuracies)), file=output_to, flush=True)
+
+    sourceFile = open(os.path.join(ROOT_DIR, os.path.join(os.path.dirname(model_path),
+                                                          "time_elapsed_per_detection_{}.csv".format(datetime.now().strftime("%Y-%m-%d-%H-%M-%S")))), "w")
+    print("DETECTION TIME,{}".format(model.get_average_elapsed_time()), file=sourceFile)
+    print("One iteration time,{}".format((sum_elapsed / elapsed_cnt)), file=sourceFile)
+    sourceFile.close()
 
 def get_ax(rows=1, cols=1, size=8):
     _, ax = plt.subplots(rows, cols, figsize=(800/90, 800/90))
@@ -158,7 +188,7 @@ if __name__ == "__main__":
     # logs/Beta_as_whole;logs/Gamma_as_whole;logs/redoing_alpha
     parser.add_argument("--model_path", default="logs/All_at_once/20201016/mask_rcnn_geometryfromimages_0400.h5", type=str,
                         help="Loads the model from given path, use 'last' for last trained model in logs")
-    parser.add_argument("--episodes", default=1, type=int,
+    parser.add_argument("--episodes", default=50, type=int,
                         help="How many episodes are used for evaluation")
     parser.add_argument("--hint", default=0, type=int,
                         help="Get hint which tool should be used each time. 1 use hint, 0 do not")
@@ -172,21 +202,23 @@ if __name__ == "__main__":
                         help="'1' if the program should load unfinished level file, '0' otherwise")
     parser.add_argument("--history_size", default=1, type=int,
                         help="history size")
-    parser.add_argument("--visualization", default=1, type=int,
+    parser.add_argument("--visualization", default=0, type=int,
                         help="'1' if each step should be visualized, '0' otherwise.")
     parser.add_argument("--white_visualization", default=1, type=int,
                         help="generate visualisation with white background. It takes longer because for white"
                              "channel you cannot just merge channel as in black visualization. '1' on, '0' off")
-    parser.add_argument("--generate_levels", default="05.*10", type=str,
+    parser.add_argument("--generate_levels", default="zeta.*12", type=str,
                         help="Regular expresion matching levels to generate")
     parser.add_argument("--tool_set", default="min_by_construction", type=str,
                         help="\"min_by_levels\" to generate minimal set of tools given by level;"
                              "\"min_by_construction\" to generate minimal set of tools given by construction;"
                              " Other values for all tools")
     parser.add_argument("--model_type", default="SingleModelInference", type=str,
-                        choices=["MultipleModelsInference", "SingleModelInference", "InteractiveInferenceSingleModel", "InteractiveInferenceMultiModel"],
+                        choices=["MultipleModelsInference", "SingleModelInference", "InteractiveInferenceSingleModel", "InteractiveInferenceMultiModel","YolacSingle"],
                         help="specify which type of model should be used."
                              " U also need to set proper --model_path based on model type")
+    parser.add_argument("--number_of_partial_goals", default=0, type=int,
+                        help="number of partial goal in the training data")
 
     args = parser.parse_args()
 
